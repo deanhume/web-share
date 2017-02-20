@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+		<a id="shareThis">Share this thing</a>
+	<script>
+	if (navigator.share !== undefined) {
+		var shareButton = document.getElementById('shareThis');
+
+		shareButton.textContent = 'Share';
+
+		shareButton.addEventListener('click', function (ev) {
+
+			var shareUrl = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : window.location.href;
+
+			navigator.share({
+				title: document.title,
+				url: shareUrl
+			}).then(() => console.log('Successful share'))
+			.catch((error) => console.log('Error sharing:', error));
+
+			ev.preventDefault();
+		});
+	}
+	</script>
+</body>
+</html>
