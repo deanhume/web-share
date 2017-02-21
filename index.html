@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Getting Started with the Web Share API</title>
-    <meta http-equiv="origin-trial" data-feature="Web Share" data-expires="2017-02-15" content="AqTxZX4AAlDGTE9ywGlspknd0fdYSetjduPkUydEZnA1PrKm4AjJFWsVB7pIHuC9OtjL775fYebZETrWA4LkHQQAAABQeyJvcmlnaW4iOiJodHRwczovL2p1c3RtYXJrdXAuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJTaGFyZSIsImV4cGlyeSI6MTQ4NzE2ODYyNX0=">
 
-  </head>
-  <body>
-		<!-- <a id="shareThis"  href="https://twitter.com/intent/tweet/?text=The%20Web%20Share%20API!&url=https%3A%2F%2Fdeanhume.com%2F&via=deanohume"target="_blank"><img src="./images/twitter.png"></a>
+<head>
+	<meta charset="UTF-8">
+	<title>Getting Started with the Web Share API</title>
+	<meta http-equiv="origin-trial" data-feature="Web Share" data-expires="2017-02-15" content="AqTxZX4AAlDGTE9ywGlspknd0fdYSetjduPkUydEZnA1PrKm4AjJFWsVB7pIHuC9OtjL775fYebZETrWA4LkHQQAAABQeyJvcmlnaW4iOiJodHRwczovL2p1c3RtYXJrdXAuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJTaGFyZSIsImV4cGlyeSI6MTQ4NzE2ODYyNX0=">
+
+</head>
+
+<body>
+	<!-- <a id="shareThis"  href="https://twitter.com/intent/tweet/?text=The%20Web%20Share%20API!&url=https%3A%2F%2Fdeanhume.com%2F&via=deanohume"target="_blank"><img src="./images/twitter.png"></a>
     <a id="shareThis" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeanhume.com%2F" target="_blank"><img src="./images/facebook.png"></a> -->
 
-    <a id="shareThis"><img src="./images/twitter.png"></a>
-    <a id="shareThis" ><img src="./images/facebook.png"></a>
+	<a id="shareThis"><img src="./images/twitter.png"></a>
+	<a id="shareThis"><img src="./images/facebook.png"></a>
+	<div id="support"></div>
 	<script>
-	if (navigator.share !== undefined) {
 		var shareButton = document.getElementById('shareThis');
+		var supported = document.getElementById('support');
 
 		shareButton.textContent = 'Share';
 
 		shareButton.addEventListener('click', function (ev) {
 
-			var shareUrl = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : window.location.href;
+			supported.innerHTML = "fired";
 
-			navigator.share({
-				title: document.title,
-				url: shareUrl
-			}).then(() => console.log('Successful share'))
-			.catch((error) => console.log('Error sharing:', error));
+			if (navigator.share !== undefined) {
 
-			ev.preventDefault();
+				supported.innerHTML = "Supported";
+
+				var shareUrl = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : window.location.href;
+
+				navigator.share({
+					title: document.title,
+					url: shareUrl
+				}).then(() => console.log('Successful share'))
+					.catch((error) => console.log('Error sharing:', error));
+
+				ev.preventDefault();
+			} else {
+				
+				supported.innerHTML = "Not supported";
+
+			}
 		});
-	}
 	</script>
 </body>
+
 </html>
