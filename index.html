@@ -4,34 +4,53 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Getting Started with the Web Share API</title>
-	<!-- Origin Trial Token, feature = Web Share, origin = https://deanhume.github.io, expires = 2017-04-04 -->
+	<link rel="canonical" href="https://deanhume.github.io/web-share/">
 	<meta http-equiv="origin-trial" data-feature="Web Share" data-expires="2017-04-04" content="AsXyKFASjvpxkgJW0h4/xCPKyCi8iIQveiFeje8kImk4vfQg4k6+BnK7R7VldUw9/nlfAviJ2ho7t8Vz2hVVjwYAAABneyJvcmlnaW4iOiJodHRwczovL2RlYW5odW1lLmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViU2hhcmUiLCJleHBpcnkiOjE0OTEzMzcwMTAsImlzU3ViZG9tYWluIjp0cnVlfQ==">
-
 </head>
+<style>
+	div {
+		width: 200px;
+		height: 200px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	
+	p {
+		text-align: center;
+		font-size: 24px;
+	}
+	
+	a {
+		text-decoration: none;
+	}
+</style>
 
 <body>
-	<!-- <a id="shareThis"  href="https://twitter.com/intent/tweet/?text=The%20Web%20Share%20API!&url=https%3A%2F%2Fdeanhume.com%2F&via=deanohume"target="_blank"><img src="./images/twitter.png"></a>
-    <a id="shareThis" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeanhume.com%2F" target="_blank"><img src="./images/facebook.png"></a> -->
+	<div>
+		<a href="http://pinterest.com/pin/create/button/?url=https%3A%2F%2Fdeanhume.com%2F&media=https%3A%2F%2Fdeanhume.github.io%2Fweb-share%2Fimages%2Fpinterest.png&description=The%20Web%20Share%20API!">
+			<img width="200" height="200" src="/images/pinterest.png" title="Pin It" />
+			<p>Share this!</p>
+		</a>
+	</div>
 
-	<a id="shareThis"><img src="./images/twitter.png"></a>
-	<!--<a id="shareThis"><img src="./images/facebook.png"></a>-->
 	<div id="support"></div>
 	<script>
 		var shareButton = document.getElementById('shareThis');
 		var supported = document.getElementById('support');
 
-		shareButton.textContent = 'Share';
-
+		// Listen for any clicks
 		shareButton.addEventListener('click', function (ev) {
-
-			supported.innerHTML = "fired";
-
+			// Check if the current browser supports the Web Share API
 			if (navigator.share !== undefined) {
 
-				supported.innerHTML = "Supported";
-
+				// Get the canonical URL from the link tag
 				var shareUrl = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : window.location.href;
 
+				// Share it!
 				navigator.share({
 					title: document.title,
 					url: shareUrl
@@ -40,9 +59,7 @@
 
 				ev.preventDefault();
 			} else {
-
-				supported.innerHTML = "Not supported";
-
+				supported.innerHTML = "Unfortunately, this feature is not supported on your browser";
 			}
 		});
 	</script>
